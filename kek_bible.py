@@ -1,14 +1,32 @@
-import requests_html
-import random, re, os
+from selenium import webdriver
+from selenium.webdriver.common.keys import Keys
+from urllib.parse import quote
 from time import sleep
 
-headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36"}
-url = "https://www.bible.com/bible/543/GEN.1.QQC"
+driver = webdriver.Chrome("chromedriver.exe")
 
-session = requests_html.HTMLSession()
+urls = []
 
-r = session.get(url, headers=headers)
-text = r.html.find(".p")
-text = [i.text for i in text]
+gn_chap = 1
+while gn_chap <= 50:
+    url = "https://www.bible.com/bible/545/GEN." + str(gn_chap)+ ".QQC"
+    urls.append(url)
+    gn_chap += 1
 
-print(text)
+file_num = 1
+for url in urls:
+    driver.get(url)
+    
+    page = driver.find_element_by_css_selector(".reader")
+    page = page.text
+
+    sleep(5)
+
+    with open("BIBLE//file_" + str(file_num) + ".txt", "w", encoding="utf8") as active:
+        active.write(page)    
+
+    file_num += 1
+
+
+driver.close()
+driver.quit()
