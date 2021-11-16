@@ -1,30 +1,16 @@
-import requests_html
-import re
 import os
+from nltk.tokenize import sent_tokenize
 
-link ="https://www.churchofjesuschrist.org/study/general-conference/2021/04/11nelson?lang=kek"
-headers = {"User-Agent":"Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/94.0.4606.61 Safari/537.36"}
-session = requests_html.HTMLSession()
+with open("TXT\\11nelson-eng.txt", "r", encoding="utf8") as infile:
+    eng = infile.read()
 
-r = session.get(link, headers=headers)
-text = r.html.find(".body-block")
-text = [i.text for i in text]
+with open("TXT\\11nelson-kek.txt", "r", encoding="utf8") as infile:
+    kek = infile.read()
 
-try:
-    text = text[0]
-except:
-    print("This link contains no text, continuing....")
+eng_tokens = sent_tokenize(eng)
+kek_tokens = sent_tokenize(kek)
 
-title = r.html.find("#title1")
-title = title[0]
-title = title.text
-title = "\"" + title +"\""
-print(title)
-
-speaker = r.html.find(".byline")
-speaker = speaker[0]
-speaker = speaker.text
-print(speaker)
-
-filename = os.path.basename(link)
-filename = re.sub(r"\?lang=kek$", "", filename)
+with open("tuples.txt", "w", encoding="utf8") as corp_file:
+    for i, eng_sentence in enumerate(eng_tokens):
+        tuple = f"(\"{eng_sentence}\", \"{kek_tokens[i]}\")"
+        corp_file.write(tuple + "\n")
