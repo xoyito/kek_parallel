@@ -31,10 +31,10 @@ for link in links:
     if re.search(r"\?lang=kek$", filename):
         filename = re.sub("\?lang=kek$", "-kek", filename)
 
+        with open("KEK_TXT\\" + filename + ".txt", "w", encoding="utf8") as outfile:
+            outfile.write(text)
+
     elif re.search(r"\?lang=eng$", filename):
         filename = re.sub("\?lang=eng$", "-eng", filename)
-
-    # print(text)
-
-    with open("TXT\\" + filename + ".txt", "w", encoding="utf8") as outfile:
-        outfile.write(text)
+        with open("ENG_TXT\\" + filename + ".txt", "w", encoding="utf8") as outfile:
+            outfile.write(text)

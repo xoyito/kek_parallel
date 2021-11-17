@@ -1,6 +1,4 @@
 from selenium import webdriver
-from selenium.webdriver.common.keys import Keys
-from urllib.parse import quote
 from time import sleep
 
 driver = webdriver.Chrome("chromedriver.exe")
