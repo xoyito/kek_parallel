@@ -12,7 +12,7 @@ num_chapters = [50, 40, 27, 36, 34, 24, 21, 4, 31, 24, 22, 25, 29, 36, 10, 13, 1
 
 for i, book in enumerate(abreviations):
     for chapter in range(num_chapters[i]):
-        url = "https://www.bible.com/bible/545/" + book + "." + str(chapter) + ".QQC"
+        url = "https://www.bible.com/bible/545/" + book + "." + str(chapter + 1) + ".QQC"
         urls.append(url)
 
 for i, url in enumerate(urls):
