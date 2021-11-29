@@ -66,12 +66,12 @@ for link in talk_links:
     eng_text = eng_text[0]
 
     kek_filename = os.path.basename(link)
-    kek_filename = re.sub("\?lang=kek$", "-kek", kek_filename)
+    kek_filename = re.sub(r"\?lang=kek$", "-kek", kek_filename)
 
     with open("KEK_TXT\\" + kek_filename + ".txt", "w", encoding="utf8") as outfile:
         outfile.write(kek_text)
 
     eng_filename = os.path.basename(english_link)
-    eng_filename = re.sub("\?lang=eng$", "-eng", eng_filename)
+    eng_filename = re.sub(r"\?lang=eng$", "-eng", eng_filename)
     with open("ENG_TXT\\" + eng_filename + ".txt", "w", encoding="utf8") as outfile:
         outfile.write(eng_text)

@@ -33,7 +33,35 @@ for file in eng_files:
         print("These files have an allignment issue moving on...")
         continue
 
+kek_triple = os.listdir("KEK_TRIPLE")
+
+for file in kek_triple:
+    eng_file = re.sub(r"\-kek.txt$", "-eng.txt", file)
+    with open("KEK_TRIPLE\\" + file, "r", encoding="utf8") as kek_file:
+        print(f"Loading {file}...")
+        kek_temp = kek_file.read()
+        kek_temp = re.sub(r"[0-9]", "", kek_temp)
+        kek_temp = re.sub(r"\n", "", kek_temp)
+        kek_temp_tokens = sent_tokenize(kek_temp)
+
+    with open("ENG_TRIPLE\\" + eng_file, "r", encoding="utf8") as english_file:
+        eng_temp = english_file.read()
+        eng_temp = re.sub(r"[0-9]", "", eng_temp)
+        eng_temp = re.sub(r"\n", "", eng_temp)
+        eng_temp_tokens = sent_tokenize(eng_temp)
+
+    if len(kek_temp_tokens) == len(eng_temp_tokens):
+        print("Adding files to parallel corpus...")
+        for token in kek_temp_tokens:
+            kek.append(token)
+
+        for token in eng_temp_tokens:
+            eng.append(token)
     
+    else:
+        print("These files have an allignment issue moving on...")
+        continue
+   
 
 #####FIXME ISSUE WITH HOW SENTENCES LINE UP IN THE BIBLE SEE withbible.txt#####
 # # bible processing
