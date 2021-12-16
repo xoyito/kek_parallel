@@ -1,40 +1,45 @@
 import os
 import re
 
-bible_files = os.listdir("ENG_BIBLE")
+bible_files = os.listdir("Scraped\\ENG_BIBLE")
+
+kek_verses=[]
+eng_verses= []
+
+for file in bible_files:
+    with open(f"Scraped\\ENG_BIBLE\\{file}", "r", encoding="utf8") as eng_in:
+        english = eng_in.read()
+
+    with open(f"Scraped\\KEK_BIBLE\\{file}", "r", encoding="utf8") as kek_in:
+        qeqchi = kek_in.read()
+
+    english = re.sub(r"\n+", " ", english)
+    english = re.sub(r"\(.*?\)", "", english)
+    english = re.sub(r"^\D+\d+\D+", "", english)
+    english = re.split(r"\d+(?!\d)(?!\s)", english)
+
+    qeqchi = re.sub(r"\n+", " ", qeqchi)
+    qeqchi = re.sub(r"\(.*?\)", "", qeqchi)
+    qeqchi = re.sub(r"^\D+\d+\D+", "", qeqchi)
+    qeqchi = re.split(r"\d+(?!\d)(?!\s)", qeqchi)
+
+    if len(qeqchi) == len(english):
+        for verse in qeqchi:
+            kek_verses.append(verse)
+        
+        for verse in english:
+            eng_verses.append(verse)
 
 with open("eng_test.txt", "w", encoding="utf8") as eng_out:
-    with open("kek_test.txt", "w", encoding="utf8") as kek_out:
-        for file in bible_files:
-            with open(f"ENG_BIBLE\\{file}", "r", encoding="utf8") as eng_inf:
-                eng_chapter = eng_inf.read()
+    for token in eng_verses:
+        token = token.rstrip()
+        if len(token) > 5:
+            eng_out.write(token + "\n")
 
-            eng_chapter = re.sub(r"^\D+\d+\D+", "", eng_chapter)
-            eng_chapter = re.sub(r"\n+", "", eng_chapter)
-            eng_verses = re.split(r"\d", eng_chapter)
-
-            with open(f"KEK_BIBLE\\{file}", "r", encoding="utf8") as kek_inf:
-                kek_chapter = kek_inf.read()
-
-            kek_chapter = re.sub(r"^\D+\d+\D+\(.+\)*\D*", "", kek_chapter)
-            kek_chapter = re.sub(r"\n+", "", kek_chapter)
-            kek_verses = re.split(r"\d", kek_chapter)
-
-            for verse in eng_verses:
-                if len(verse) < 5:
-                    eng_verses.remove(verse)
-
-            for verse in eng_verses:
-                eng_out.write(verse + "\n")
-
-            for verse in kek_verses:
-                if len(verse) < 5:
-                    kek_verses.remove(verse)
-
-            for verse in kek_verses:
-                kek_out.write(verse + "\n")
+with open("kek_test.txt", "w", encoding="utf8") as kek_out:
+    for token in kek_verses:
+        token = token.rstrip()
+        if len(token) > 5:
+            kek_out.write(token + "\n")
 
 
-
-
-    

@@ -1,8 +1,8 @@
 from nltk.tokenize import sent_tokenize
 import re, os
 
-eng_files = os.listdir("Scraped\\ENG_TXT")
-kek_files= os.listdir("Scraped\\KEK_TXT")
+eng_files = os.listdir("Scraped\\ENG_GC")
+kek_files= os.listdir("Scraped\\KEK_GC")
 
 eng = []
 kek = []
@@ -59,38 +59,6 @@ for file in kek_triple:
     else:
         print("These files have an allignment issue moving on...")
         continue
-   
-
-#####FIXME ISSUE WITH HOW SENTENCES LINE UP IN THE BIBLE SEE withbible.txt#####
-# # bible processing
-# bible_files = os.listdir("ENG_BIBLE")
-# for file in bible_files:
-#     with open("ENG_BIBLE\\" + file, "r", encoding="utf8") as eng_file:
-#         eng_chapter = eng_file.read()
-    
-#     with open("KEK_BIBLE\\" + file, "r", encoding="utf8") as kek_file:
-#         kek_chapter = kek_file.read()
-    
-#     eng_chapter = re.sub(r"\A.+\n*.*\n*.*\n+1", "", eng_chapter)
-#     kek_chapter = re.sub(r"\A.+\n*.*\n*.*\n+1", "", kek_chapter)
-
-#     eng = eng + "\n" + eng_chapter
-#     kek = kek + "\n" + kek_chapter
-
-# post processing
-# eng = re.sub(r"\n", " ", eng)
-# eng = re.sub(r"[0-9]", "", eng)
-# eng = re.sub(r"“|”", "", eng)
-# eng = re.sub(r"\t", "", eng)
-# eng = re.sub(r"\.\.\.", "", eng)
-# eng = re.sub(r"…", "", eng)
-
-# kek = re.sub(r"\n", " ", kek)
-# kek = re.sub(r"[0-9]", "", kek)
-# kek = re.sub(r"“|”", "", kek)
-# kek = re.sub(r"\t", "", kek)
-# kek = re.sub(r"\.\.\.", "", kek)
-# kek = re.sub(r"…", "", kek)
 
 for i, token in enumerate(eng):
     token = re.sub(r"\n", "", token)
@@ -109,8 +77,8 @@ for i, token in enumerate(kek):
     kek[i] = token
 
 with open("Corpus\\eng.txt", "w", encoding="utf8") as corp_file:
-        for eng_sentence in eng:
-            corp_file.write(eng_sentence + "\n")
+    for eng_sentence in eng:
+        corp_file.write(eng_sentence + "\n")
 
 with open("Corpus\\kek.txt", "w", encoding="utf8") as kek_file:
     for kek_sentence in kek:

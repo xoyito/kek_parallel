@@ -1,0 +1,15 @@
+This is the Q'eqchi'-English Parallel Corpus
+The corpus contains Q'eqchi' text scraped from 2148 URLs and English text scraped from 2148 URLs.
+Lists of URLS that were scraped can be found in the Scraped directory as english_links.txt and kek_links.txt.
+
+
+The full scraped text can be found in the Scraped directory, a script called parallel.py lines up the sentences that can be easily alligned into the files in the corpus directory.
+The parallel sentences are available in plain text and .json format in the Corpus directory.
+
+The parallel corpus contains:
+
+	17043 parallel sentences.
+
+	515661 English words and 19186 unique English tokens.
+
+	653457 Q'eqchi' words and 23276 unique Q'eqchi' tokens.
